@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>文章</title>
+
+        <style>
+            body {
+                margin: 0 auto;
+                width: 960px;
+            }
+
+            .navbar {
+                padding: 50px;
+                font-size: 2em;
+                background-color: lightslategray;
+            }
+            .navbar a { color: orange; }
+
+            .container {
+                width: 960px;
+                margin: 0 auto;
+            }
+
+            .content {
+                width: 768px;
+                height: 800px;
+                background-color: khaki;
+                float: left;
+            }
+
+            .sidebar {
+                width: 192px;
+                height: 800px;
+                background-color: deepskyblue;
+                float: left;
+            }
+
+            .footbar {
+                padding: 30px 0;
+                clear: both;
+                font-size: 0.6em;
+                color: gray;
+                background-color:greenyellow;
+                text-align: center;
+            }
+        </style>
+        <!-- 某些页面独有的页面样式 -->
+        {% block ext_css %}{% endblock %}
+    </head>
+
+    <body>
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <a href="#">首页</a>
+            <a href="#">近期文章</a>
+            <a href="#">热门看点</a>
+        </div>
+
+        <div class="container">
+
+            <!-- 内容区 -->
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- 边栏 -->
+            <div class="sidebar">
+                {% block sidebar %} 这是边栏 {% endblock %}
+            </div>
+
+        </div>
+
+        <!-- 底栏 -->
+        <div class="footbar">
+
+        </div>
+
+        <!-- 某些页面独有的JS -->
+        {% block ext_js %}{% endblock %}
+    </body>
+</html>

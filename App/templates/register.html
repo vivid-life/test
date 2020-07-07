@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<form action="{{ url_for('blue.register') }}" method="POST" enctype="multipart/form-data">
+
+    用户名：
+    <input type="text" name="name">
+    <br>
+
+    密码：
+    <input type="password" name="password">
+    <br>
+
+    性别：
+    <select name="gender">
+        <option value="male">男</option>
+        <option value="female">女</option>
+        <option value="unknow">保密</option>
+    </select>
+    <br>
+
+    年龄：
+    <input type="text" name="age">
+    <br>
+
+    城市：
+    <input type="text" name="city">
+    <br>
+
+    简介：
+    <input type="text" name="intro">
+    <br>
+
+    兴趣:
+    <input type="text" name="hobby">
+    <br>
+
+    <input type="submit" name="提交">
+</form>
+
+
+{% endblock %}
