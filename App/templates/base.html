@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>文章</title>
+<head>
+    <title>文章</title>
 
-        <style>
-            body {
-                margin: 0 auto;
-                width: 960px;
-            }
+    <style>
+        body {
+            margin: 0 auto;
+            width: 960px;
+        }
 
-            .navbar {
-                padding: 50px;
-                font-size: 2em;
-                background-color: lightslategray;
-            }
-            .navbar a { color: orange; }
+        .navbar {
+            padding: 50px;
+            font-size: 2em;
+            background-color: lightslategray;
+        }
 
-            .container {
-                width: 960px;
-                margin: 0 auto;
-            }
+        .navbar a {
+            color: orange;
+        }
 
-            .content {
-                width: 768px;
-                height: 800px;
-                background-color: khaki;
-                float: left;
-            }
+        .container {
+            width: 960px;
+            margin: 0 auto;
+        }
 
-            .sidebar {
-                width: 192px;
-                height: 800px;
-                background-color: deepskyblue;
-                float: left;
-            }
+        .content {
+            width: 768px;
+            height: 800px;
+            background-color: khaki;
+            float: left;
+        }
 
-            .footbar {
-                padding: 30px 0;
-                clear: both;
-                font-size: 0.6em;
-                color: gray;
-                background-color:greenyellow;
-                text-align: center;
-            }
-        </style>
-        <!-- 某些页面独有的页面样式 -->
-        {% block ext_css %}{% endblock %}
-    </head>
+        .sidebar {
+            width: 192px;
+            height: 800px;
+            background-color: deepskyblue;
+            float: left;
+        }
 
-    <body>
-        <!-- 导航栏 -->
-        <div class="navbar">
-            <a href="#">首页</a>
-            <a href="#">近期文章</a>
-            <a href="#">热门看点</a>
-        </div>
+        .footbar {
+            padding: 30px 0;
+            clear: both;
+            font-size: 0.6em;
+            color: gray;
+            background-color: greenyellow;
+            text-align: center;
+        }
+    </style>
+    <!-- 某些页面独有的页面样式 -->
+    {% block ext_css %}{% endblock %}
+</head>
 
-        <div class="container">
+<body>
+<!-- 导航栏 -->
+<div class="navbar">
+    <a href="#">首页</a>
+    <a href="#">近期文章</a>
+    <a href="#">热门看点</a>
+</div>
 
-            <!-- 内容区 -->
-            <div class="content">
-                {% block content %}{% endblock %}
-            </div>
+<div class="container">
 
-            <!-- 边栏 -->
-            <div class="sidebar">
-                {% block sidebar %} 这是边栏 {% endblock %}
-            </div>
+    <!-- 内容区 -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 
-        </div>
+    <!-- 边栏 -->
+    <div class="sidebar">
+        {% block sidebar %} 这是边栏 {% endblock %}
+    </div>
 
-        <!-- 底栏 -->
-        <div class="footbar">
+</div>
 
-        </div>
+<!-- 底栏 -->
+<div class="footbar">
 
-        <!-- 某些页面独有的JS -->
-        {% block ext_js %}{% endblock %}
-    </body>
+</div>
+
+<!-- 某些页面独有的JS -->
+{% block ext_js %}{% endblock %}
+</body>
 </html>

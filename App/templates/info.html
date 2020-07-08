@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <h2>当前用户：{{ user.name }}</h2>
+
+    <hr>
+
+    <ul>
+        <li>ID：{{ user.id }}</li>
+        <li>性别：{{ user.gender }}</li>
+        <li>年龄：{{ user.age }}</li>
+        <li>城市：{{ user.city }}</li>
+        <li>简介：{{ user.intro }}</li>
+    </ul>
+
+    <a href="{{ url_for('blue.logout') }}">退出</a>
+{% endblock %}

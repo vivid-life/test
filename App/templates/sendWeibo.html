@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{{ url_for('blue.sendWeibo') }}" method="POST">
+    标题：<input type="text" name="title">
+    <hr>
+
+    正文：
+    <br>
+    <textarea name="content" rows="20" cols="80"></textarea>
+    <br>
+
+    <input type="submit" value="提交">
+    </form>
+{% endblock %}

@@ -1,18 +1,21 @@
+import datetime
+
 from flask import Blueprint, request, redirect, url_for, render_template, session
 from sqlalchemy.orm import exc
 
-from App.models import User, db
+from App.models import User, db, Weibo
 
-blue = Blueprint('blue',__name__)
+blue = Blueprint('blue', __name__)
+
 
 @blue.route('/')
 def hello_world():
     return 'Hello World!'
 
 
-@blue.route('/register/')
+@blue.route('/register/',methods=('GET','POST'))
 def register():
-    if request.method =='POST':
+    if request.method == 'POST':
         name = request.form.get('name')
         password = request.form.get('password')
         gender = request.form.get('gender')
@@ -20,8 +23,8 @@ def register():
         city = request.form.get('city')
         intro = request.form.get('intro')
         hobby = request.form.get('hobby')
-        user = User(name=name,password=password,gender=gender,age=age,city=city,intro=intro
-                    ,hobby=hobby)
+        user = User(name=name, password=password, gender=gender, age=age, city=city, intro=intro, hobby=hobby)
+
         db.session.add(user)
         db.session.commit()
 
@@ -32,22 +35,65 @@ def register():
 
 @blue.route('/login/', methods=('GET', 'POST'))
 def login():
-    '''登录'''
+
     if request.method == 'POST':
-        # 取出参数
-        username = request.form.get('username')
+
+        name = request.form.get('name')
         password = request.form.get('password')
 
-        # 取出用户数据, 并检查 (无法取到时需要提示用户密码错误)
+
         try:
-            user = User.query.filter_by(username=username, password=password).one()
+            user = User.query.filter_by(name=name, password=password).one()
         except exc.NoResultFound:
             return render_template('login.html', err='用户名密码错误')
 
-        # 将登录状态记录到 session
-        session['uid'] = user.id
-        session['username'] = user.username
 
-        return redirect(url_for('blue.info'))  # 返回用户信息页
+        session['uid'] = user.id
+        session['name'] = user.name
+
+        return redirect(url_for('blue.info'))
     else:
         return render_template('login.html')
+
+
+@blue.route('/info/')
+def info():
+    if 'uid' in session:
+        uid = session['uid']
+        user = User.query.get(uid)
+        return render_template('info.html', user=user)
+    else:
+        return redirect(url_for('blue.login'))
+
+
+@blue.route('/sendWeibo/',methods=('GET', 'POST'))
+def sendWeibo():
+    if 'uid' not in session:
+        return redirect(url_for('blue.login'))
+
+    if request.method == 'POST':
+        uid = session['uid']
+        title = request.form.get('title')
+        content = request.form.get('content')
+        created = datetime.datetime.now()
+        weibo = Weibo(uid=uid,title=title,content=content,created=created)
+
+        db.session.add(weibo)
+        db.session.commit()
+
+        return redirect(url_for('blue.show_weibo'))
+    else:
+        return render_template('sendWeibo.html')
+
+
+@blue.route('/show_weibo/')
+def show_weibo():
+    all_weibo = Weibo.query.all()
+    return render_template('show_weibo.html',all_weibo=all_weibo)
+
+
+@blue.route('/logout/')
+def logout():
+    session.pop('uid')
+    session.pop('name')
+    return redirect(url_for('blue.login'))

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>微博</h1>
+<hr>
+<ul>
+    {% for weibo in all_weibo %}
+    <li><a href="/weibo/read?weibo_id={{ weibo.id }}">{{ weibo.topic }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
