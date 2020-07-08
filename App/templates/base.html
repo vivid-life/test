@@ -1,84 +1,98 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>文章</title>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <style>
-        body {
-            margin: 0 auto;
-            width: 960px;
-        }
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 
-        .navbar {
-            padding: 50px;
-            font-size: 2em;
-            background-color: lightslategray;
-        }
+        <title>迷你微博</title>
 
-        .navbar a {
-            color: orange;
-        }
+        <style>
+            body { margin: 0 auto; padding: 0; }
 
-        .container {
-            width: 960px;
-            margin: 0 auto;
-        }
+            h1 { margin: 30px 0; }
 
-        .content {
-            width: 768px;
-            height: 800px;
-            background-color: khaki;
-            float: left;
-        }
+            .footbar {
+                padding: 30px 0;
+                font-size: 0.6em;
+                color: gray;
+                text-align: center;
+            }
+        </style>
+    </head>
 
-        .sidebar {
-            width: 192px;
-            height: 800px;
-            background-color: deepskyblue;
-            float: left;
-        }
+    <body>
+        <!-- 导航栏 -->
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+              <img src="/static/img/logo.png" width="30" class="d-inline-block align-top" alt="" loading="lazy">
+              迷你微博
+            </a>
 
-        .footbar {
-            padding: 30px 0;
-            clear: both;
-            font-size: 0.6em;
-            color: gray;
-            background-color: greenyellow;
-            text-align: center;
-        }
-    </style>
-    <!-- 某些页面独有的页面样式 -->
-    {% block ext_css %}{% endblock %}
-</head>
+            <div class="collapse navbar-collapse justify-content-between">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">关注的人</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">粉丝列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">热门微博</a>
+                    </li>
+                </ul>
 
-<body>
-<!-- 导航栏 -->
-<div class="navbar">
-    <a href="#">首页</a>
-    <a href="#">近期文章</a>
-    <a href="#">热门看点</a>
-</div>
+                <ul class="navbar-nav">
+                    {% if 'uid' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blue.info') }}">{{ session.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blue.post') }}">发微博</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blue.logout') }}">退出</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blue.register') }}">注册</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blue.login') }}">登录</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
 
-<div class="container">
+        <!-- 内容容器 -->
+        <div class="container">
+            <div class="row">
+                <!-- 内容区 -->
+                <div class="col-sm-8">
+                    {% block content %}{% endblock %}
+                </div>
 
-    <!-- 内容区 -->
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
+                <!-- 边栏 -->
+                <div class="col-sm-4">
+                    {% block sidebar %}{% endblock %}
+                </div>
+            </div>
+        </div>
 
-    <!-- 边栏 -->
-    <div class="sidebar">
-        {% block sidebar %} 这是边栏 {% endblock %}
-    </div>
+        <!-- 底栏 -->
+        <div class="footbar">
+            版权所有 @ 新浪
+        </div>
 
-</div>
-
-<!-- 底栏 -->
-<div class="footbar">
-
-</div>
-
-<!-- 某些页面独有的JS -->
-{% block ext_js %}{% endblock %}
-</body>
+        <!-- JS -->
+        <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+        <script src="/static/js/popper.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    </body>
 </html>

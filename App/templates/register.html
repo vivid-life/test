@@ -1,44 +1,65 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 
 {% block content %}
 
-    <form action="{{ url_for('blue.register') }}" method="POST" enctype="multipart/form-data">
+<h1>欢迎注册</h1>
 
-        用户名：
-        <input type="text" name="name">
-        <br>
+<hr>
 
-        密码：
-        <input type="password" name="password">
-        <br>
+{% if err %}
+<div class="alert alert-danger" role="alert">
+    {{ err }}
+</div>
+{% endif %}
 
-        性别：
-        <select name="gender">
-            <option value="male">男</option>
-            <option value="female">女</option>
-            <option value="unknow">保密</option>
-        </select>
-        <br>
+<form action="{{ url_for('blue.register') }}" method="POST">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">昵称</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="请输入昵称" name="username">
+        </div>
+    </div>
 
-        年龄：
-        <input type="text" name="age">
-        <br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">密码</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" placeholder="请输入密码" name="password">
+        </div>
+    </div>
 
-        城市：
-        <input type="text" name="city">
-        <br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">性别</label>
+        <div class="col-sm-6">
+            <select class="custom-select" name="gender">
+                <option value="unknown" selected>保密</option>
+                <option value="male">小哥哥</option>
+                <option value="female">小姐姐</option>
+            </select>
+        </div>
+    </div>
 
-        简介：
-        <input type="text" name="intro">
-        <br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">生日</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" name="birthday">
+        </div>
+    </div>
 
-        兴趣:
-        <input type="text" name="hobby">
-        <br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">常居地</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="请输入您的所在的地区" name="location">
+        </div>
+    </div>
 
-        <input type="submit" name="提交">
-    </form>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">个人简介</label>
+        <div class="col-sm-6">
+            <textarea class="form-control" placeholder="请输入个人简介" name="bio" rows="5"></textarea>
+        </div>
+    </div>
 
+    <button type="submit" class="btn btn-primary offset-md-2">提交</button>
+</form>
 
 {% endblock %}

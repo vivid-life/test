@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>修改个人信息</h1>
+
+<hr>
+
+{% if err %}
+<div class="alert alert-danger" role="alert">
+    {{ err }}
+</div>
+{% endif %}
+
+<form action="/user/update" method="POST" enctype="multipart/form-data">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">昵称</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="请输入昵称" name="username" value="{{ user.username }}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">性别</label>
+        <div class="col-sm-6">
+            <select class="custom-select" name="gender">
+                <option value="unknow" {% if user.gender == 'unknow' %}selected{% endif %}>保密</option>
+                <option value="male" {% if user.gender == 'male' %}selected{% endif %}>小哥哥</option>
+                <option value="female" {% if user.gender == 'female' %}selected{% endif %}>小姐姐</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">生日</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" name="birthday" value="{{ user.birthday }}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">常居地</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="请输入您的所在的地区" name="location" value="{{ user.location }}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">个人简介</label>
+        <div class="col-sm-6">
+            <textarea class="form-control" placeholder="请输入个人简介" name="bio" rows="5">{{ user.bio }}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">头像</label>
+        <div class="col-sm-6">
+            <input type="file" class="form-control-file" accept="image/*" name="avatar">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary offset-md-2">提交</button>
+</form>
+
+{% endblock %}

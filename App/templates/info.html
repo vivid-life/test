@@ -1,19 +1,36 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 
-    <h2>当前用户：{{ user.name }}</h2>
+<h1>您好 <span class="text-primary">{{ user.username }}</span></h1>
 
-    <hr>
+<hr>
 
-    <ul>
-        <li>ID：{{ user.id }}</li>
-        <li>性别：{{ user.gender }}</li>
-        <li>年龄：{{ user.age }}</li>
-        <li>城市：{{ user.city }}</li>
-        <li>简介：{{ user.intro }}</li>
-    </ul>
+<img src="{{ user.avatar }}" width="100px">
+<hr>
 
-    <a href="{{ url_for('blue.logout') }}">退出</a>
+<div><strong>性别</strong>:
+    {% if user.gender == 'male' %}
+    小哥哥
+    {% elif user.gender == 'female' %}
+    小姐姐
+    {% else %}
+    保密
+    {% endif %}
+</div>
+<hr>
+
+<div><strong>生日</strong>: {{ user.birthday }}</div>
+<hr>
+
+<div><strong>常居地</strong>: {{ user.location }}</div>
+<hr>
+
+<div><strong>个人简介</strong>: {{ user.bio }}</div>
+<hr>
+
+<div><strong>注册时间</strong>: {{ user.created }}</div>
+<hr>
+
+<a class="btn btn-success" href="/user/update">修改个人资料</a>
 {% endblock %}
